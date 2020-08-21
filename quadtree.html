@@ -1,0 +1,190 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Quad Tree Visualization</title>
+  <meta name="author" content="Vlad Litvak">
+  <meta name="description" content="An interactive webpage to visualize quad trees">
+  <link rel="icon" type="image/x-icon" href="images/quadtreefavicon.ico">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <script src="script.js"></script>
+
+  <!-- header -->
+  <div class="header">
+
+    <!-- logo -->
+    <div class="logo unselectable">
+      <img src="images/quadtree.png" style="height:110px;">
+    </div>
+
+    <!-- title and author -->
+    <div class="title">
+      <h1>Interactive Quad Tree Visualization Tool</h1>
+      <p>Created by Vlad Litvak</p>
+    </div>
+  </div>
+
+  <!-- partition between header and body -->
+  <div class="partition"></div>
+
+  <!-- body below partition -->
+  <div class="row">
+
+    <!-- side bar -->
+    <div class="side unselectable">
+
+      <!-- add point panel -->
+      <div class="actionpanel">
+        <!-- point input -->
+        <form>
+          ( <input style="width:50px;" type="text" id="addPointX" placeholder="X"> ,
+          <input style="width:50px;" type="text" id="addPointY" placeholder="Y"> )
+          <!-- submit button -->
+          <panelbutton style="padding:14px 36px;" onclick="addPointFromInput()">Add Point</panelbutton>
+        </form>
+      </div>
+
+      <!-- search for point panel -->
+      <div class="actionpanel">
+        <!-- point input -->
+        <form>
+          ( <input style="width:50px;" type="text" id="searchPointX" placeholder="X"> ,
+          <input style="width:50px;" type="text" id="searchPointY" placeholder="Y"> )
+          <!-- submit button -->
+          <panelbutton onclick="searchPointFromInput()">Search for Point</panelbutton>
+        </form>
+      </div>
+
+      <!-- find points within rectangle panel -->
+      <div class="actionpanel">
+        <!-- decorative rectangle -->
+        <div class="topleftborder"></div>
+        <div class="bottomrightborder"></div>
+        <!-- top-right coordinate input -->
+        <div class="rightalign">
+          <form>
+            ( <input style="width:50px;" type="text" id="searchRectMaxX" placeholder="Max X"> ,
+            <input style="width:50px;" type="text" id="searchRectMaxY" placeholder="Max Y"> )
+          </form>
+        </div>
+        <!-- bottom-left coordinate input -->
+        <div class="leftalign">
+          <form>
+            ( <input style="width:50px;" type="text" id="searchRectMinX" placeholder="Min X"> ,
+            <input style="width:50px;" type="text" id="searchRectMinY" placeholder="Min Y"> )
+          </form>
+        </div>
+        <!-- submit button -->
+        <div class="findpointswithinrectanglebutton">
+          <panelbutton onclick="searchRectangleFromInput()">Find Points Within Rectangle</panelbutton>
+        </div>
+      </div>
+
+      <!-- leaf node capacity panel -->
+      <div class="actionpanel" style="font-size:18px;height:205px;">
+        <b>Leaf Node Capacity:</b>
+          <div style="margin-left:53px;margin-top:20px">
+            <label class="color"><input type="radio" name="capacity" id="capacity3" onclick="changeNodeCapacity(3)" checked><span>Three</span></label>
+            <label class="color"><input type="radio" name="capacity" id="capacity4" onclick="changeNodeCapacity(4)"><span>Four</span></label>
+            <label class="color"><input type="radio" name="capacity" id="capacity5" onclick="changeNodeCapacity(5)"><span>Five</span></label>
+            <label class="color"><input type="radio" name="capacity" id="capacity6" onclick="changeNodeCapacity(6)"><span>Six</span></label>
+          </div>
+      </div>
+    </div>
+
+    <!-- main body -->
+    <div class="main">
+
+      <!-- quad tree title and stats -->
+      <h2>Quad Tree</h2>
+      <h4>
+        Depth: <span style="color:#005774;" id="depth">0</span> |
+        Nodes: <span style="color:#005774;" id="nodes">1</span> |
+        Leaf Nodes: <span style="color:#005774;" id="leafnodes">1</span> |
+        Points: <span style="color:#005774;" id="points">0</span>
+      </h4>
+
+      <!-- options bar -->
+      <div class="optionsbar unselectable">
+        <label><input type="checkbox" id="hidepoints" onclick="hidePoints()"><span>Hide Points</span></label>
+        <clickbox class="removelastpoint" onclick="removeLastPoint()">Remove Last Point</clickbox>
+        <clickbox class="erase" onclick="eraseTree()">Erase Quad Tree</clickbox>
+      </div>
+
+      <!-- top coordinates of the root node -->
+      <p class="unselectable" style="text-align:left;">(0, 100)<span style="float:right;">(100, 100)</span></p>
+
+      <!-- holds the nodes and points in the tree -->
+      <div class="quadtreestage" id="stage">
+        <div class="quadtreerootnode" id="node0"></div>
+        <div class="boundingrectangle" id="boundingrectangle"></div>
+      </div>
+
+      <!-- bottom coordinates of the root node -->
+      <p class="unselectable" style="text-align:left;">(0, 0)<span style="float:right;">(100, 0)</span></p>
+
+      <!-- holds clickable coordinates corresponding to points in the tree -->
+      <h2 class="unselectable" style="margin-top: 50px;">Points:</h2>
+      <div class="coordinatepanel unselectable" id="coordinatepanel"></div>
+
+      <!-- about section -->
+      <h2 style="margin-top:50px;">About Quad Trees:</h2>
+      <div class="aboutlist">
+      <ul>
+        <li>Quad Trees are spatial data structures designed to hold points (2d data) in a manner that makes searching large data sets very efficient</li>
+        <ul>
+          <li>To find whether a point is in the tree, we search (starting from the root node) down the tree to the leaf node whose region would contain the point,
+            then, we search this node's pointers for the point</li>
+          <ul>
+            <li>This takes O(log(n)) time (where n is the number of points in the tree), as we travel down the depth of the tree</li>
+          </ul>
+          <li>To insert a point, we first search for the point in the tree, then, if the point is not yet in the tree, we add it to the appropriate leaf node</li>
+          <ul>
+            <li>This also takes O(log(n)) time</li>
+          </ul>
+          <li>To perform a range query, we recursively search down all nodes of the tree until we reach a leaf node, then, for each point in the leaf node, we determine whether
+            it is in the range of the query</li>
+          <ul>
+            <li>The recursion stops at nodes whose range does not intersect the range of the query</li>
+            <li>This takes O(n) time, as each leaf node may need to be visited</li>
+          </ul>
+        </ul>
+        <br>
+        <li>Each inner node holds four pointers to its children (subregions)
+          <ul>
+            <li>top-left, top-right, bottom-left, and bottom-right</li>
+          </ul>
+          <br>
+        <li>Each leaf node holds pointers to all points within its region</li>
+        <ul>
+          <li>Only points within the region of the root node can be held in the Quad Tree</li>
+          <li>Points on divisions between nodes follow an arbitrary heuristic to determine which node they belong to</li>
+          <ul>
+            <li>In this example, points are held in the node to the right and/or below</li>
+          </ul>
+          <li>Each Quad Tree has a set capacity of how many points a leaf node can hold</li>
+          <li>If a point is added to a node at capacity, the node splits into four subnodes, recursively, until no node is above capacity</li>
+        </ul>
+        <br>
+        <li>Some common uses of Quad Trees are:</li>
+        <ul>
+          <li>Image processing & compression</li>
+          <li>Collision detection</li>
+          <li>Spatial indexing</li>
+        </ul>
+      </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- footer -->
+  <div class="footer">
+    Vlad Litvak &copy; 2020
+  </div>
+
+</body>
+</html>

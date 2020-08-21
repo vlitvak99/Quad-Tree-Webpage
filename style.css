@@ -1,0 +1,394 @@
+html {
+  height: 100%;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Helvetica Neue";
+  margin: 0;
+  cursor: default;
+}
+
+.header {
+  padding: 20px;
+  min-width: 1000px;
+  text-align: center;
+  text-shadow: 2px 2px 2px #7A7A7A;
+  background: rgb(1,129,171);
+  background: linear-gradient(0deg, rgba(1,129,171,1) 0%, rgba(120,188,210,1) 40%, rgba(255,255,255,1) 100%);
+  color: #343434;
+}
+
+.title {
+  margin-right: 150px;
+}
+
+.logo {
+  float: left;
+  width: 150px;
+  padding: 5px;
+}
+
+.partition {
+  width: 100%;
+  height: 15px;
+  background: #333;
+}
+
+.row {
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.side {
+  flex: 0 0 400px;
+  background: rgb(77,77,77);
+  background: linear-gradient(0deg, rgba(77,77,77,1) 0%, rgba(154,154,154,1) 100%);
+  padding: 20px;
+  padding-top: 90px;
+}
+
+.actionpanel {
+  position: relative;
+  background: #838383;
+  color: #242424;
+  font-size: 30px;
+  text-align: center;
+  padding: 30px 20px;
+  margin: 20px 0px;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px #5F5F5F;
+}
+
+panelbutton {
+  cursor: pointer;
+  background: #0181AB;
+  color: white;
+  font-size: 12px;
+  white-space: nowrap;
+  padding: 14px 20px;
+  margin: 8px;
+  margin-bottom: 10px;
+  border: none;
+  border-radius: 4px;
+}
+
+panelbutton:hover {
+  background: #00A4DA;
+}
+
+panelbutton:active {
+  background: #0094C4;
+}
+
+.actionpanel label {
+    float:left;
+    width:100px;
+    margin:4px;
+    background:#EFEFEF;
+    border-radius:4px;
+    overflow:auto;
+
+}
+
+.actionpanel label span {
+    text-align:center;
+    font-size: 12px;
+    padding:13px 0px;
+    display:block;
+}
+
+.actionpanel label input {
+    display:none;
+}
+
+.actionpanel input:checked + span {
+    background:#006181;
+}
+
+.actionpanel input:checked:active + span {
+  background: #003242;
+}
+
+input[type=text], select {
+  padding: 8px 7px;
+  margin: 8px 0px;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.actionpanel .color {
+  cursor: pointer;
+  background: #0181AB;
+  color: white;
+}
+
+.actionpanel .color:hover {
+  background: #00A4DA;
+}
+
+.actionpanel .color:active {
+  background: #0094C4;
+}
+
+.topleftborder {
+  position: absolute;
+  width: 130px;
+  height: 105px;
+  margin-top: 20px;
+  margin-left: 20px;
+  border-top: 2px solid #000000;
+  border-left: 2px solid #000000;
+}
+
+.bottomrightborder {
+  position: absolute;
+  width: 130px;
+  height: 100px;
+  margin-top: 55px;
+  margin-left: 170px;
+  border-bottom: 2px solid #000000;
+  border-right: 2px solid #000000;
+}
+
+.rightalign {
+  text-align: right;
+}
+
+.leftalign {
+  padding-top: 85px;
+  text-align: left;
+}
+
+.findpointswithinrectanglebutton {
+  position: absolute;
+  height: 50px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+findpointswithinrectanglebutton {
+  background: #0181AB;
+  color: white;
+  font-size: 12px;
+  white-space: nowrap;
+  padding: 14px 20px;
+  margin: 8px;
+  margin-bottom: 10px;
+  border: none;
+  border-radius: 4px;
+}
+
+.main {
+  flex: 1;
+  min-width: 600px;
+  background: rgb(97,97,97);
+  background: linear-gradient(0deg, rgba(97,97,97,1) 0%, rgba(187,187,187,1) 100%);
+  padding: 20px;
+}
+
+.optionsbar {
+  display: flex;
+  min-width: 540px;
+  font-size: 14px;
+  justify-content: center;
+  text-align: center;
+  margin-top: 30px;
+}
+
+.optionsbar clickbox {
+  cursor: pointer;
+  color: white;
+  background: #0181AB;
+  border-radius: 5px;
+  padding: 14px 20px;
+  text-align: center;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.optionsbar label :hover {
+  background: #00A4DA;
+}
+
+.optionsbar label :active {
+  background: #0094C4;
+}
+
+.optionsbar label {
+  cursor: pointer;
+  margin-left: 5px;
+  margin-right: 5px;
+  background: #EFEFEF;
+  border-radius: 4px;
+  overflow: auto;
+}
+
+.optionsbar label span {
+  text-align: center;
+  background: #0181AB;
+  color: white;
+  padding: 14px 20px;
+  display: block;
+}
+
+.optionsbar label input {
+  display: none;
+}
+
+.optionsbar input:checked + span {
+  background: #00536E;
+  color: white;
+}
+
+.optionsbar input:checked:active + span {
+  background: #003242;
+}
+
+.removelastpoint:hover {
+  background: #00A4DA;
+}
+
+.removelastpoint:active {
+  background: #0094C4;
+}
+
+.erase:hover {
+  background: #D33535;
+  color: white;
+}
+
+.erase:active {
+  background: #B22E2E;
+  color: white;
+}
+
+.quadtreestage {
+  position: relative;
+  background: #C8C8C8;
+  width: 95%;
+  height: 500px;
+  padding: 0px;
+  box-shadow: 0px 0px 10px #4B4B4B;
+  margin-left: 2.5%;
+  margin-right: 2.5%;
+}
+
+.quadtreerootnode {
+  position: relative;
+  border: 1px solid #000000;
+  height: 100%;
+  width: 100%;
+}
+
+.quadtreerootnode:not(.innernode):hover {
+  background: #56B8D8;
+}
+
+.quadtreenode {
+  position: relative;
+  border: 1px solid #000000;
+  height: 50%;
+  width: 50%;
+}
+
+.backgroundtransition {
+  transition: background 1s;
+}
+
+.quadtreenode:not(.innernode):hover {
+  background: #56B8D8;
+}
+
+.leftnode {
+  float: left;
+}
+
+.rightnode {
+  float: right;
+}
+
+.boundingrectangle {
+  position: absolute;
+  border: 1px solid red;
+  visibility: hidden;
+  opacity: 0%;
+  height: 0%;
+  width: 0%;
+  bottom: 0%;
+  left: 0%;
+  transition: visibility 1s, opacity 1s;
+}
+
+.point {
+  height: 6px;
+  width: 6px;
+  background: red;
+  opacity: 90%;
+  visibility: visible;
+  transition: visibility 1s, opacity 1s, height .5s, width .5s, margin-left .5s, margin-bottom .5s;
+  border-radius: 50%;
+  position: absolute;
+  margin-left: -3px;
+  margin-bottom: -3px;
+}
+
+.point:hover {
+  background: green;
+}
+
+.coordinatepanel {
+  display: flex;
+  flex-wrap: wrap;
+  text-align: center;
+}
+
+.coordinatepanel coordinates {
+  cursor: pointer;
+  background: #9E9E9E;
+  color: white;
+  border-radius: 7px;
+  box-shadow: 0px 0px 10px #373737;
+  padding: 14px 20px;
+  text-align: center;
+  margin: 10px;
+}
+
+.coordinatepanel coordinates:hover {
+  background: #F9F9F9;
+  color: black;
+}
+
+.coordinatepanel coordinates:active {
+  background: #E3E3E3;
+  color: black;
+}
+
+.aboutlist li {
+  list-style: circle;
+  margin-bottom: 7px;
+}
+
+.footer {
+  padding: 10px;
+  font-size: 10px;
+  text-align: center;
+  background: rgb(65,65,65);
+  background: linear-gradient(0deg, rgba(65,65,65,1) 0%, rgba(77,77,77,1) 100%);
+  color: #808080;
+}
+
+.unselectable {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
